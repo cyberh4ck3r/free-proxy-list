@@ -2,7 +2,7 @@
 
 [![Status](https://img.shields.io/badge/status-live-brightgreen)](https://mqkgv51l.status.cron-job.org/)
 
-automatically updated proxy lists from multiple sources. refreshed every 10 minutes via github actions.
+automatically updated proxy lists from multiple sources.
 
 ## download
 
