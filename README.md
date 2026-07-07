@@ -43,7 +43,3 @@ proxies are aggregated from the following public sources:
 - [spys.one](https://spys.one/en/free-proxy-list/)
 
 all credit goes to the original maintainers of these sources. this project just aggregates and re-publishes their public lists.
-
----
-
-📊 [View live uptime status](https://mqkgv51l.status.cron-job.org/)
