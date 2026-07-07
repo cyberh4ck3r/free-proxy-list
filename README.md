@@ -1,4 +1,4 @@
-# Proxy List
+# Free Proxy List
 
 automatically updated proxy lists from multiple sources. refreshed every 10 minutes via github actions.
 
