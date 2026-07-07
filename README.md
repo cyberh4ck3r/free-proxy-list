@@ -29,3 +29,21 @@ https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxie
 ## notes
 
 for educational purposes only. i do not own or manage any of these proxies.
+
+## credits
+
+proxies are aggregated from the following public sources:
+
+- [TheSpeedX/SOCKS-List](https://github.com/TheSpeedX/SOCKS-List)
+- [free-proxy-list.net](https://free-proxy-list.net/)
+- [ProxyScrape](https://proxyscrape.com/free-proxy-list)
+- [ProxyNova](https://www.proxynova.com/proxy-server-list/)
+- [ProxyBros](https://proxybros.com/free-proxy-list/)
+- [ProxyDB](https://proxydb.net/)
+- [spys.one](https://spys.one/en/free-proxy-list/)
+
+all credit goes to the original maintainers of these sources. this project just aggregates and re-publishes their public lists.
+
+---
+
+📊 [View live uptime status](https://mqkgv51l.status.cron-job.org/)
