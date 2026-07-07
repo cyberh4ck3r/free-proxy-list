@@ -4,10 +4,25 @@ automatically updated proxy lists from multiple sources. refreshed every 10 minu
 
 ## download
 
-**http** — `https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/http-proxies.txt`
-**https** — `https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/https-proxies.txt`
-**socks4** — `https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks4-proxies.txt`
-**socks5** — `https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxies.txt`
+- **HTTP**
+```bash
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/http-proxies.txt
+```
+
+- **HTTPS**
+```bash
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/https-proxies.txt
+```
+
+- **SOCKS4**
+```bash
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks4-proxies.txt
+```
+
+- **SOCKS5**
+```bash
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxies.txt
+```
 
 ## notes
 
