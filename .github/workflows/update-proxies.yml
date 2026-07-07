@@ -17,7 +17,16 @@ jobs:
 
       - run: node scripts/fetch-proxies.mjs
 
+      - name: Build commit message
+        id: msg
+        run: |
+          HTTP=$(wc -l < http-proxies.txt)
+          HTTPS=$(wc -l < https-proxies.txt)
+          S4=$(wc -l < socks4-proxies.txt)
+          S5=$(wc -l < socks5-proxies.txt)
+          echo "message=update proxy lists — HTTP: $HTTP, HTTPS: $HTTPS, SOCKS4: $S4, SOCKS5: $S5" >> $GITHUB_OUTPUT
+
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: update proxy lists"
+          commit_message: ${{ steps.msg.outputs.message }}
           file_pattern: "*.txt"
