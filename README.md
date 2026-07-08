@@ -1,6 +1,8 @@
 # Free Proxy List
 
 [![Status](https://img.shields.io/badge/status-live-brightgreen)](https://mqkgv51l.status.cron-job.org/)
+[![License](https://img.shields.io/github/license/cyberh4ck3r/free-proxy-list)](LICENSE)
+[![Commits](https://img.shields.io/github/commit-activity/m/cyberh4ck3r/free-proxy-list)](https://github.com/cyberh4ck3r/free-proxy-list/commits)
 
 automatically updated proxy lists from multiple sources.
 
