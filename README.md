@@ -32,6 +32,10 @@ https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxie
 
 for educational purposes only. i do not own or manage any of these proxies.
 
+## want HQ proxies?
+
+run the HTTP and HTTPS lists through [HQ Proxy Checker](https://github.com/cyberh4ck3r/hq-proxy-checker) to filter for fast, working proxies with a 1s timeout.
+
 ## credits
 
 proxies are aggregated from the following public sources:
