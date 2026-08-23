@@ -37,7 +37,9 @@ function ensureDir(p) {
 function loadProxies() {
   const entries = []
   for (const [protocol, file] of Object.entries(PROTOCOL_FILES)) {
-    const path = join(ROOT, file)
+    // new location proxies/unchecked/ + fallback to root for transition
+    const uncheckedPath = join(ROOT, "proxies", "unchecked", file)
+    const path = existsSync(uncheckedPath) ? uncheckedPath : join(ROOT, file)
     if (!existsSync(path)) continue
     const text = readFileSync(path, "utf-8")
     const lines = text.split("\n").map(s => s.trim()).filter(Boolean)
@@ -225,8 +227,6 @@ function writeOutputs(healthy) {
     const items = sorted.filter(i => i.protocol === proto)
     const fileName = `${proto.toLowerCase()}-proxies`
     writeChecked(join(ROOT, "proxies", "checked", "protocols", proto.toLowerCase()), fileName, items)
-    // also keep legacy root healthy for compat (optional)
-    writeFileSync(join(ROOT, `${proto.toLowerCase()}-healthy.txt`), items.map(i=>i.proxy).join("\n") + (items.length ? "\n" : ""))
   }
 
   // proxies/checked/latency/fast/fast-proxies.txt
@@ -255,10 +255,6 @@ function writeOutputs(healthy) {
   writeFileSync(join(ROOT, "proxies", "badges", "stable.json"), JSON.stringify(badge("stable", stable.length)))
   writeFileSync(join(ROOT, "proxies", "badges", "elite.json"), JSON.stringify(badge("elite", elite.length)))
   writeFileSync(join(ROOT, "proxies", "badges", "updated.json"), JSON.stringify(badge("updated", new Date().toISOString().slice(0,10))))
-
-  // also write legacy proxies/all for compat during transition
-  ensureDir(join(ROOT, "proxies", "all"))
-  writeChecked(join(ROOT, "proxies", "all"), "data", sorted)
 
   console.log(`\nOutputs (checked):`)
   console.log(`  all: ${sorted.length} (fast: ${fast.length}, stable: ${stable.length}, elite: ${elite.length})`)

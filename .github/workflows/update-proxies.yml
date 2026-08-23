@@ -35,25 +35,23 @@ jobs:
       - name: Build commit message
         id: msg
         run: |
-          HTTP=$(wc -l < http-proxies.txt 2>/dev/null || echo 0)
-          HTTPS=$(wc -l < https-proxies.txt 2>/dev/null || echo 0)
-          S4=$(wc -l < socks4-proxies.txt 2>/dev/null || echo 0)
-          S5=$(wc -l < socks5-proxies.txt 2>/dev/null || echo 0)
-          FAST=$(wc -l < proxies/checked/latency/fast/fast-proxies.txt 2>/dev/null || wc -l < proxies/latency/fast/data.txt 2>/dev/null || echo 0)
-          STABLE=$(wc -l < proxies/checked/stability/stable/stable-proxies.txt 2>/dev/null || wc -l < proxies/stability/stable/data.txt 2>/dev/null || echo 0)
-          ELITE=$(wc -l < proxies/checked/anonymity/elite/elite-proxies.txt 2>/dev/null || wc -l < proxies/anonymity/elite/data.txt 2>/dev/null || echo 0)
-          HEALTHY=$(wc -l < proxies/checked/all/all-proxies.txt 2>/dev/null || wc -l < proxies/all/data.txt 2>/dev/null || echo 0)
+          HTTP=$(wc -l < proxies/unchecked/http-proxies.txt 2>/dev/null || wc -l < http-proxies.txt 2>/dev/null || echo 0)
+          HTTPS=$(wc -l < proxies/unchecked/https-proxies.txt 2>/dev/null || wc -l < https-proxies.txt 2>/dev/null || echo 0)
+          S4=$(wc -l < proxies/unchecked/socks4-proxies.txt 2>/dev/null || wc -l < socks4-proxies.txt 2>/dev/null || echo 0)
+          S5=$(wc -l < proxies/unchecked/socks5-proxies.txt 2>/dev/null || wc -l < socks5-proxies.txt 2>/dev/null || echo 0)
+          FAST=$(wc -l < proxies/checked/latency/fast/fast-proxies.txt 2>/dev/null || echo 0)
+          STABLE=$(wc -l < proxies/checked/stability/stable/stable-proxies.txt 2>/dev/null || echo 0)
+          ELITE=$(wc -l < proxies/checked/anonymity/elite/elite-proxies.txt 2>/dev/null || echo 0)
+          HEALTHY=$(wc -l < proxies/checked/all/all-proxies.txt 2>/dev/null || echo 0)
           echo "message=update proxy lists - HTTP: $HTTP, HTTPS: $HTTPS, SOCKS4: $S4, SOCKS5: $S5 | healthy: $HEALTHY, fast: $FAST, stable: $STABLE, elite: $ELITE" >> $GITHUB_OUTPUT
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: ${{ steps.msg.outputs.message }}
           file_pattern: |
-            *.txt
             proxies/unchecked/*.txt
             proxies/checked/**/*.txt
             proxies/checked/**/*.json
-            proxies/**/*.txt
             proxies/**/*.json
             stats/*.json
             README.md

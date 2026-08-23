@@ -3,10 +3,7 @@ import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const OUT_DIRS = [
-  join(__dirname, ".."),
-  join(__dirname, "..", "proxies", "unchecked"),
-]
+const OUT_DIRS = [join(__dirname, "..", "proxies", "unchecked")]
 
 const FETCH_TIMEOUT_MS = 20000
 const MAX_RETRIES = 2
