@@ -6,42 +6,31 @@
 
 automatically updated proxy lists from multiple sources — with health-check every 30 minutes (fast/stable/elite filters).
 
-## download — raw lists (unverified)
 
-> also available sorted under `proxies/unchecked/`
+## download — raw lists (unverified)
+these come straight from the sources, no testing applied:
 
 - **HTTP** — `http-proxies.txt`
 ```bash
-https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/http-proxies.txt
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/http-proxies.txt
 ```
 - **HTTPS** — `https-proxies.txt`
 ```bash
-https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/https-proxies.txt
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/https-proxies.txt
 ```
 - **SOCKS4** — `socks4-proxies.txt`
 ```bash
-https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks4-proxies.txt
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/socks4-proxies.txt
 ```
 - **SOCKS5** — `socks5-proxies.txt`
 ```bash
-https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxies.txt
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/socks5-proxies.txt
 ```
 
-```
-proxies/unchecked/
-  http-proxies.txt
-  https-proxies.txt
-  socks4-proxies.txt
-  socks5-proxies.txt
-```
 
 ## download — verified (health-checked)
 
-> verified files are generated after the first health-check run. if a link returns 404, the next 30min run will create it. `TXT` = `host:port` per line, `JSON` = rich records.
+> generated after the first health-check run — a 404 just means the next 30min run hasn't created it yet. `TXT` = `host:port` per line, `JSON` = full records.
 
 | List | Proxies | TXT | JSON |
 |---|---|---|---|
