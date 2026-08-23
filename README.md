@@ -43,40 +43,12 @@ https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unche
 | **Stable proxies** | `consecutiveSuccesses >= 2` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.json) |
 | **Elite proxies** | `anonymity == elite` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.json) |
 
-```
-proxies/checked/
-  all/all-proxies.txt|json
-  protocols/http/http-proxies.txt|json
-  protocols/https/https-proxies.txt|json
-  protocols/socks4/socks4-proxies.txt|json
-  protocols/socks5/socks5-proxies.txt|json
-  latency/fast/fast-proxies.txt|json
-  stability/stable/stable-proxies.txt|json
-  anonymity/elite/elite-proxies.txt|json
-```
-
-**JSON shape** per entry:
-```json
-{
-  "proxy": "1.2.3.4:8080",
-  "host": "1.2.3.4",
-  "port": 8080,
-  "protocol": "http",
-  "latencyMs": 842,
-  "anonymity": "elite",
-  "supportsHttps": true,
-  "consecutiveSuccesses": 3,
-  "reliabilityScore": 96.5,
-  "lastChecked": "2026-08-23T12:00:00Z"
-}
-```
 
 ## notes
-
 for educational purposes only. i do not own or manage any of these proxies.
 
-## credits
 
+## credits
 proxies are aggregated from the following public sources:
 
 - [TheSpeedX/SOCKS-List](https://github.com/TheSpeedX/SOCKS-List)
