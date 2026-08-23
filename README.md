@@ -8,21 +8,35 @@ automatically updated proxy lists from multiple sources — with health-check ev
 
 ## download — raw lists (unverified)
 
+> also available sorted under `proxies/unchecked/`
+
 - **HTTP** — `http-proxies.txt`
 ```bash
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/http-proxies.txt
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/http-proxies.txt
 ```
 - **HTTPS** — `https-proxies.txt`
 ```bash
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/https-proxies.txt
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/https-proxies.txt
 ```
 - **SOCKS4** — `socks4-proxies.txt`
 ```bash
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks4-proxies.txt
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/socks4-proxies.txt
 ```
 - **SOCKS5** — `socks5-proxies.txt`
 ```bash
 https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxies.txt
+https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unchecked/socks5-proxies.txt
+```
+
+```
+proxies/unchecked/
+  http-proxies.txt
+  https-proxies.txt
+  socks4-proxies.txt
+  socks5-proxies.txt
 ```
 
 ## download — verified (health-checked)
@@ -31,14 +45,26 @@ https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxie
 
 | List | Proxies | TXT | JSON |
 |---|---|---|---|
-| **All healthy** | healthy only | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/all/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/all/data.json) |
-| **HTTP healthy** | HTTP | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/http/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/http/data.json) |
-| **HTTPS healthy** | HTTPS | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/https/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/https/data.json) |
-| **SOCKS4 healthy** | SOCKS4 | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/socks4/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/socks4/data.json) |
-| **SOCKS5 healthy** | SOCKS5 | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/socks5/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/protocols/socks5/data.json) |
-| **Fast proxies** | `latency <= 1000ms` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/latency/fast/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/latency/fast/data.json) |
-| **Stable proxies** | `consecutiveSuccesses >= 2` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/stability/stable/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/stability/stable/data.json) |
-| **Elite proxies** | `anonymity == elite` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/anonymity/elite/data.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/anonymity/elite/data.json) |
+| **All healthy** | healthy only | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/all/all-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/all/all-proxies.json) |
+| **HTTP healthy** | HTTP | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/http/http-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/http/http-proxies.json) |
+| **HTTPS healthy** | HTTPS | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/https/https-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/https/https-proxies.json) |
+| **SOCKS4 healthy** | SOCKS4 | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks4/socks4-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks4/socks4-proxies.json) |
+| **SOCKS5 healthy** | SOCKS5 | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks5/socks5-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks5/socks5-proxies.json) |
+| **Fast proxies** | `latency <= 1000ms` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/latency/fast/fast-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/latency/fast/fast-proxies.json) |
+| **Stable proxies** | `consecutiveSuccesses >= 2` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.json) |
+| **Elite proxies** | `anonymity == elite` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.json) |
+
+```
+proxies/checked/
+  all/all-proxies.txt|json
+  protocols/http/http-proxies.txt|json
+  protocols/https/https-proxies.txt|json
+  protocols/socks4/socks4-proxies.txt|json
+  protocols/socks5/socks5-proxies.txt|json
+  latency/fast/fast-proxies.txt|json
+  stability/stable/stable-proxies.txt|json
+  anonymity/elite/elite-proxies.txt|json
+```
 
 **JSON shape** per entry:
 ```json

@@ -196,15 +196,12 @@ function toCsv(rows) {
 }
 
 function writeOutputs(healthy) {
-  // sort by latency for txt
   const sorted = [...healthy].sort((a,b) => a.latencyMs - b.latencyMs)
 
-  // helper to write trio
-  function writeTrio(baseDir, items) {
+  function writeChecked(baseDir, baseName, items) {
     ensureDir(baseDir)
     const txt = items.map(i => i.proxy).join("\n") + (items.length ? "\n" : "")
-    writeFileSync(join(baseDir, "data.txt"), txt)
-    // json with metadata
+    writeFileSync(join(baseDir, `${baseName}.txt`), txt)
     const json = items.map(i => ({
       proxy: i.proxy,
       host: i.host,
@@ -217,32 +214,34 @@ function writeOutputs(healthy) {
       reliabilityScore: i.reliabilityScore,
       lastChecked: i.lastChecked
     }))
-    writeFileSync(join(baseDir, "data.json"), JSON.stringify(json, null, 2))
-    writeFileSync(join(baseDir, "data.csv"), toCsv(json))
+    writeFileSync(join(baseDir, `${baseName}.json`), JSON.stringify(json, null, 2))
   }
 
-  // all
-  writeTrio(join(ROOT, "proxies", "all"), sorted)
-  // protocols
+  // proxies/checked/all/all-proxies.txt|json
+  writeChecked(join(ROOT, "proxies", "checked", "all"), "all-proxies", sorted)
+
+  // proxies/checked/protocols/<proto>/*-proxies.txt
   for (const proto of ["HTTP","HTTPS","SOCKS4","SOCKS5"]) {
     const items = sorted.filter(i => i.protocol === proto)
-    writeTrio(join(ROOT, "proxies", "protocols", proto.toLowerCase()), items)
-    // also write legacy root healthy files for convenience
+    const fileName = `${proto.toLowerCase()}-proxies`
+    writeChecked(join(ROOT, "proxies", "checked", "protocols", proto.toLowerCase()), fileName, items)
+    // also keep legacy root healthy for compat (optional)
     writeFileSync(join(ROOT, `${proto.toLowerCase()}-healthy.txt`), items.map(i=>i.proxy).join("\n") + (items.length ? "\n" : ""))
   }
-  // fast
+
+  // proxies/checked/latency/fast/fast-proxies.txt
   const fast = sorted.filter(i => i.latencyMs <= FAST_THRESHOLD_MS)
-  writeTrio(join(ROOT, "proxies", "latency", "fast"), fast)
+  writeChecked(join(ROOT, "proxies", "checked", "latency", "fast"), "fast-proxies", fast)
 
-  // stable (needs history consecutive >=2)
+  // proxies/checked/stability/stable/stable-proxies.txt
   const stable = sorted.filter(i => i.consecutiveSuccesses >= STABLE_THRESHOLD)
-  writeTrio(join(ROOT, "proxies", "stability", "stable"), stable)
+  writeChecked(join(ROOT, "proxies", "checked", "stability", "stable"), "stable-proxies", stable)
 
-  // elite
+  // proxies/checked/anonymity/elite/elite-proxies.txt
   const elite = sorted.filter(i => i.anonymity === "elite")
-  writeTrio(join(ROOT, "proxies", "anonymity", "elite"), elite)
+  writeChecked(join(ROOT, "proxies", "checked", "anonymity", "elite"), "elite-proxies", elite)
 
-  // badges (shields.io endpoint format)
+  // badges
   ensureDir(join(ROOT, "proxies", "badges"))
   function badge(label, message, color="brightgreen") {
     return { schemaVersion: 1, label, message: String(message), color }
@@ -257,9 +256,11 @@ function writeOutputs(healthy) {
   writeFileSync(join(ROOT, "proxies", "badges", "elite.json"), JSON.stringify(badge("elite", elite.length)))
   writeFileSync(join(ROOT, "proxies", "badges", "updated.json"), JSON.stringify(badge("updated", new Date().toISOString().slice(0,10))))
 
-  // also write simple txt at repo root for jsDelivr stable links like xyzs996
-  // keep compat: proxies/all/data.txt is primary, but also expose via proxies/latency etc as above
-  console.log(`\nOutputs:`)
+  // also write legacy proxies/all for compat during transition
+  ensureDir(join(ROOT, "proxies", "all"))
+  writeChecked(join(ROOT, "proxies", "all"), "data", sorted)
+
+  console.log(`\nOutputs (checked):`)
   console.log(`  all: ${sorted.length} (fast: ${fast.length}, stable: ${stable.length}, elite: ${elite.length})`)
   for (const proto of ["HTTP","HTTPS","SOCKS4","SOCKS5"]) {
     console.log(`  ${proto}: ${sorted.filter(i=>i.protocol===proto).length}`)
