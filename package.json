@@ -1,0 +1,16 @@
+{
+  "name": "free-proxy-list",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Automatically updated proxy lists with health-check",
+  "scripts": {
+    "fetch": "node scripts/fetch-proxies.mjs",
+    "check": "node scripts/check-proxies.mjs",
+    "update": "node scripts/fetch-proxies.mjs && node scripts/check-proxies.mjs"
+  },
+  "dependencies": {
+    "https-proxy-agent": "^7.0.2",
+    "socks-proxy-agent": "^8.0.3",
+    "undici": "^8.10.0"
+  }
+}

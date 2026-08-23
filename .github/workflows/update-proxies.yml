@@ -2,7 +2,8 @@ name: Update Proxies
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    # 30min wie xyzs996 - 10min ist zu knapp fuer Health-Check (8000 Proxys * 8s Timeout)
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -19,18 +20,36 @@ jobs:
         with:
           node-version: "24"
 
-      - run: node scripts/fetch-proxies.mjs
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Fetch proxies
+        run: node scripts/fetch-proxies.mjs
+
+      - name: Health check + filter (fast/stable/elite)
+        run: node scripts/check-proxies.mjs
+        timeout-minutes: 20
 
       - name: Build commit message
         id: msg
         run: |
-          HTTP=$(wc -l < http-proxies.txt)
-          HTTPS=$(wc -l < https-proxies.txt)
-          S4=$(wc -l < socks4-proxies.txt)
-          S5=$(wc -l < socks5-proxies.txt)
-          echo "message=update proxy lists — HTTP: $HTTP, HTTPS: $HTTPS, SOCKS4: $S4, SOCKS5: $S5" >> $GITHUB_OUTPUT
+          HTTP=$(wc -l < http-proxies.txt 2>/dev/null || echo 0)
+          HTTPS=$(wc -l < https-proxies.txt 2>/dev/null || echo 0)
+          S4=$(wc -l < socks4-proxies.txt 2>/dev/null || echo 0)
+          S5=$(wc -l < socks5-proxies.txt 2>/dev/null || echo 0)
+          FAST=$(wc -l < proxies/latency/fast/data.txt 2>/dev/null || echo 0)
+          STABLE=$(wc -l < proxies/stability/stable/data.txt 2>/dev/null || echo 0)
+          ELITE=$(wc -l < proxies/anonymity/elite/data.txt 2>/dev/null || echo 0)
+          HEALTHY=$(wc -l < proxies/all/data.txt 2>/dev/null || echo 0)
+          echo "message=update proxy lists - HTTP: $HTTP, HTTPS: $HTTPS, SOCKS4: $S4, SOCKS5: $S5 | healthy: $HEALTHY, fast: $FAST, stable: $STABLE, elite: $ELITE" >> $GITHUB_OUTPUT
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: ${{ steps.msg.outputs.message }}
-          file_pattern: "*.txt README.md"
+          file_pattern: |
+            *.txt
+            proxies/**/*.txt
+            proxies/**/*.json
+            proxies/**/*.csv
+            stats/*.json
+            README.md
