@@ -2,8 +2,7 @@ name: Update Proxies
 
 on:
   schedule:
-    # 30min wie xyzs996 - 10min ist zu knapp fuer Health-Check (8000 Proxys * 8s Timeout)
-    - cron: "*/30 * * * *"
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 jobs:
