@@ -32,6 +32,16 @@ https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/socks5-proxie
 
 for educational purposes only. i do not own or manage any of these proxies.
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=cyberh4ck3r%2Ffree-proxy-list&type=timeline&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=cyberh4ck3r/free-proxy-list&type=timeline&theme=dark&legend=top-left&sealed_token=-Vyg2r7KUCufRvl3hjhX3DAIDzAAargjf6KOZIZRhmUOCy7K3HAN-yBs-jv1X1LIrE--vgyJ0yaugLQ_gl7Mc-R3iUIecjvOvDvuEOCae4Amap9aOL1T0cOAVS8dwDBR8bSWGxfTzSGfu-o6EGiS1a3fabmJlJz5Y39S_AX1FUE0ekVMWiDIs9kGBTH0" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=cyberh4ck3r/free-proxy-list&type=timeline&legend=top-left&sealed_token=-Vyg2r7KUCufRvl3hjhX3DAIDzAAargjf6KOZIZRhmUOCy7K3HAN-yBs-jv1X1LIrE--vgyJ0yaugLQ_gl7Mc-R3iUIecjvOvDvuEOCae4Amap9aOL1T0cOAVS8dwDBR8bSWGxfTzSGfu-o6EGiS1a3fabmJlJz5Y39S_AX1FUE0ekVMWiDIs9kGBTH0" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=cyberh4ck3r/free-proxy-list&type=timeline&legend=top-left&sealed_token=-Vyg2r7KUCufRvl3hjhX3DAIDzAAargjf6KOZIZRhmUOCy7K3HAN-yBs-jv1X1LIrE--vgyJ0yaugLQ_gl7Mc-R3iUIecjvOvDvuEOCae4Amap9aOL1T0cOAVS8dwDBR8bSWGxfTzSGfu-o6EGiS1a3fabmJlJz5Y39S_AX1FUE0ekVMWiDIs9kGBTH0" />
+ </picture>
+</a>
+
 ## credits
 
 proxies are aggregated from the following public sources:
