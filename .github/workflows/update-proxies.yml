@@ -29,6 +29,9 @@ jobs:
         run: node scripts/check-proxies.mjs
         timeout-minutes: 20
 
+      - name: Update README counts
+        run: node scripts/update-readme-counts.mjs
+
       - name: Build commit message
         id: msg
         run: |

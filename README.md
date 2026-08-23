@@ -32,16 +32,16 @@ https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/unche
 
 > generated after the first health-check run — a 404 just means the next 30min run hasn't created it yet. `TXT` = `host:port` per line, `JSON` = full records.
 
-| List | Proxies | TXT | JSON |
-|---|---|---|---|
-| **All healthy** | healthy only | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/all/all-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/all/all-proxies.json) |
-| **HTTP healthy** | HTTP | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/http/http-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/http/http-proxies.json) |
-| **HTTPS healthy** | HTTPS | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/https/https-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/https/https-proxies.json) |
-| **SOCKS4 healthy** | SOCKS4 | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks4/socks4-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks4/socks4-proxies.json) |
-| **SOCKS5 healthy** | SOCKS5 | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks5/socks5-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks5/socks5-proxies.json) |
-| **Fast proxies** | `latency <= 1000ms` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/latency/fast/fast-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/latency/fast/fast-proxies.json) |
-| **Stable proxies** | `consecutiveSuccesses >= 2` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.json) |
-| **Elite proxies** | `anonymity == elite` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.json) |
+| List | Filter | Count | TXT | JSON |
+|---|---|---|---|---|
+| **All healthy** | healthy only | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/all/all-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/all/all-proxies.json) |
+| **HTTP healthy** | HTTP | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/http/http-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/http/http-proxies.json) |
+| **HTTPS healthy** | HTTPS | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/https/https-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/https/https-proxies.json) |
+| **SOCKS4 healthy** | SOCKS4 | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks4/socks4-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks4/socks4-proxies.json) |
+| **SOCKS5 healthy** | SOCKS5 | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks5/socks5-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/protocols/socks5/socks5-proxies.json) |
+| **Fast proxies** | `latency <= 1000ms` | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/latency/fast/fast-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/latency/fast/fast-proxies.json) |
+| **Stable proxies** | `consecutiveSuccesses >= 2` | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/stability/stable/stable-proxies.json) |
+| **Elite proxies** | `anonymity == elite` | `—` | [TXT](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.txt) | [JSON](https://raw.githubusercontent.com/cyberh4ck3r/free-proxy-list/main/proxies/checked/anonymity/elite/elite-proxies.json) |
 
 
 ## notes
