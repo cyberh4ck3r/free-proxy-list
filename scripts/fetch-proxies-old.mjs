@@ -3,7 +3,11 @@ import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const OUT_DIRS = [__dirname + "/.."]
+const OUT_DIRS = [join(__dirname, "..")]
+
+const FETCH_TIMEOUT_MS = 20000
+const MAX_RETRIES = 2
+const RETRY_DELAY_MS = 1500
 
 const SOURCES = [
   {
@@ -31,10 +35,22 @@ const SOURCES = [
     url: "https://free-proxy-list.net/en/socks-proxy.html",
     protocols: ["SOCKS4", "SOCKS5"],
   },
+  // proxyscrape.com/free-proxy-list is a JS-rendered landing page — scraping it directly
+  // yields nothing useful. Use their documented raw-text API endpoints instead.
   {
-    label: "proxyscrape",
-    url: "https://proxyscrape.com/free-proxy-list",
-    protocols: ["HTTP", "HTTPS", "SOCKS4", "SOCKS5"],
+    label: "proxyscrape HTTP",
+    url: "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all",
+    protocols: ["HTTP", "HTTPS"],
+  },
+  {
+    label: "proxyscrape SOCKS4",
+    url: "https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=10000&country=all",
+    protocols: ["SOCKS4"],
+  },
+  {
+    label: "proxyscrape SOCKS5",
+    url: "https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5&timeout=10000&country=all",
+    protocols: ["SOCKS5"],
   },
   {
     label: "proxynova",
@@ -58,73 +74,131 @@ const SOURCES = [
   },
 ]
 
+const PROTOCOL_FILES = {
+  HTTP: "http-proxies.txt",
+  HTTPS: "https-proxies.txt",
+  SOCKS4: "socks4-proxies.txt",
+  SOCKS5: "socks5-proxies.txt",
+}
+
+// Basic sanity bounds so we don't collect garbage like "999.999.999.999:99999"
+function isValidProxy(ip, port) {
+  const octets = ip.split(".").map(Number)
+  if (octets.some((o) => o < 0 || o > 255)) return false
+  const p = Number(port)
+  if (p < 1 || p > 65535) return false
+  return true
+}
+
 function extractProxies(text) {
-  const ipPortRegex = /\b(?:\d{1,3}\.){3}\d{1,3}:\d{2,5}\b/g
-  const matches = text.match(ipPortRegex)
-  return matches ? [...new Set(matches.map((m) => m.trim()))] : []
+  const ipPortRegex = /\b((?:\d{1,3}\.){3}\d{1,3}):(\d{2,5})\b/g
+  const found = new Set()
+  let match
+  while ((match = ipPortRegex.exec(text)) !== null) {
+    const [, ip, port] = match
+    if (isValidProxy(ip, port)) found.add(`${ip}:${port}`)
+  }
+  return [...found]
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+async function fetchWithTimeout(url, timeoutMs) {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        // Some of these sites reject requests with no user agent at all.
+        "User-Agent":
+          "Mozilla/5.0 (compatible; ProxyListBot/1.0; +https://github.com/)",
+      },
+    })
+    return res
+  } finally {
+    clearTimeout(timeout)
+  }
 }
 
 async function fetchSource(source) {
-  try {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 20000)
-    const res = await fetch(source.url, { signal: controller.signal })
-    clearTimeout(timeout)
-    if (!res.ok) return []
-    const text = await res.text()
-    const proxies = extractProxies(text)
-    console.log(`  [${source.label}] ${proxies.length} proxies`)
-    return proxies
-  } catch (e) {
-    console.error(`  [${source.label}] FAILED: ${e.message}`)
-    return []
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const res = await fetchWithTimeout(source.url, FETCH_TIMEOUT_MS)
+      if (!res.ok) {
+        console.error(`  [${source.label}] HTTP ${res.status}`)
+        if (attempt < MAX_RETRIES) {
+          await sleep(RETRY_DELAY_MS)
+          continue
+        }
+        return []
+      }
+      const text = await res.text()
+      const proxies = extractProxies(text)
+      console.log(`  [${source.label}] ${proxies.length} proxies`)
+      if (proxies.length === 0) {
+        console.warn(
+          `  [${source.label}] WARNING: 0 proxies extracted — page may be JS-rendered or its markup changed`
+        )
+      }
+      return proxies
+    } catch (e) {
+      const isLast = attempt === MAX_RETRIES
+      console.error(
+        `  [${source.label}] FAILED (attempt ${attempt + 1}/${MAX_RETRIES + 1}): ${e.message}`
+      )
+      if (!isLast) await sleep(RETRY_DELAY_MS)
+      else return []
+    }
   }
+  return []
 }
 
 async function main() {
   console.log("Fetching proxy sources...")
-  const allProxies = await Promise.all(
-    SOURCES.map(async (source) => {
-      const proxies = await fetchSource(source)
-      return { source, proxies }
-    })
+
+  const results = await Promise.all(
+    SOURCES.map(async (source) => ({
+      source,
+      proxies: await fetchSource(source),
+    }))
   )
 
-  const result = {}
-  for (const { source, proxies } of allProxies) {
+  const byProtocol = {}
+  for (const { source, proxies } of results) {
     for (const protocol of source.protocols) {
-      if (!result[protocol]) result[protocol] = new Set()
-      for (const p of proxies) result[protocol].add(p)
+      if (!byProtocol[protocol]) byProtocol[protocol] = new Set()
+      for (const p of proxies) byProtocol[protocol].add(p)
     }
   }
 
-  const protocolFiles = {
-    HTTP: "http-proxies.txt",
-    HTTPS: "https-proxies.txt",
-    SOCKS4: "socks4-proxies.txt",
-    SOCKS5: "socks5-proxies.txt",
+  // Snapshot counts BEFORE converting sets to sorted arrays, so the summary
+  // reflects the actual number of unique proxies per protocol.
+  const counts = {}
+  for (const protocol of Object.keys(PROTOCOL_FILES)) {
+    counts[protocol] = byProtocol[protocol] ? byProtocol[protocol].size : 0
   }
 
   for (const dir of OUT_DIRS) {
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
-    for (const [protocol, filename] of Object.entries(protocolFiles)) {
-      const list = result[protocol] ? [...result[protocol]].sort() : []
-      writeFileSync(join(dir, filename), list.join("\n"), "utf-8")
+    for (const [protocol, filename] of Object.entries(PROTOCOL_FILES)) {
+      const list = byProtocol[protocol] ? [...byProtocol[protocol]].sort() : []
+      writeFileSync(join(dir, filename), list.join("\n") + (list.length ? "\n" : ""), "utf-8")
     }
   }
 
-  console.log(`\nDone. Saved to data/ and github/`)
+  console.log(`\nDone. Saved to: ${OUT_DIRS.join(", ")}`)
   let total = 0
-  for (const [protocol, list] of Object.entries(result)) {
-    console.log(`  ${filename(protocol)}: ${list.size} proxies`)
-    total += list.size
+  for (const [protocol, filename] of Object.entries(PROTOCOL_FILES)) {
+    console.log(`  ${filename}: ${counts[protocol]} proxies`)
+    total += counts[protocol]
   }
   console.log(`Total: ${total}`)
 }
 
-function filename(protocol) {
-  const map = { HTTP: "http-proxies.txt", HTTPS: "https-proxies.txt", SOCKS4: "socks4-proxies.txt", SOCKS5: "socks5-proxies.txt" }
-  return map[protocol] || protocol
-}
-
-main()
+main().catch((e) => {
+  console.error("Fatal error:", e)
+  process.exit(1)
+})
